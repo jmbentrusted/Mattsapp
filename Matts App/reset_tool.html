@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restore 6-Week Transition Plan</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f8fafc; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        h1 { color: #f87b4d; margin-bottom: 20px; }
+        .btn { padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin: 10px 0; font-size: 18px; display: block; width: 100%; }
+        .btn-primary { background: #10b981; color: white; }
+        .btn-primary:hover { background: #059669; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+        .status { padding: 20px; margin: 20px 0 0 0; border-radius: 8px; font-weight: 500; font-size: 16px; line-height: 1.6; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .progress { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Restore 6-Week Transition Plan</h1>
+        <div class="warning">
+            <strong>✔️ Safe & Targeted:</strong> This tool will ONLY affect the 6-week transition plan. All other data in your Jobs, Meetings, and Actions tabs will be completely untouched.
+            <br><br>
+            It will delete the old, corrupted plan and replace it with a fresh, complete copy. <strong>Run this once to fix the issue permanently.</strong>
+        </div>
+
+        <button id="restoreBtn" class="btn btn-primary" onclick="runRestore()">
+            ✅ Restore Only the 6-Week Transition Plan
+        </button>
+
+        <div id="status" class="status" style="display:none;"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMXgj9TWW0hjqelbfDEJHJGuzR9cXigRI",
+            authDomain: "matts-transition-plan.firebaseapp.com",
+            projectId: "matts-transition-plan",
+            storageBucket: "matts-transition-plan.firebasestorage.app",
+            messagingSenderId: "63824238795",
+            appId: "1:63824238795:web:656da2a8d19cd1183be34e",
+            measurementId: "G-7DRE31YDR7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const statusDiv = document.getElementById('status');
+        const btn = document.getElementById('restoreBtn');
+
+        // The single document we will overwrite
+        const transitionPlanDocRef = doc(db, 'transitionPlans', 'main_transition_plan');
+
+        async function restorePlan() {
+            // This is the complete, correct data for the transition plan.
+            const transitionPlanData = {"title":"Matt's 6-Week Transition Plan","weeks":{"week1":{"title":"Week 1","focus":"Foundation & Project Kick-off","actionItems":[{"text":"Get Google Calendar access for team schedules.","completed":false},{"text":"Schedule initial one-on-ones with Jacob, Hardie, and Chandler.","completed":false},{"text":"Begin Project: Create tracking spreadsheet for March-July jobs with outstanding payment issues.","completed":false},{"text":"Begin Project: Build a system/spreadsheet for tracking trainee progress and development milestones.","completed":false}],"learningFocus":["Admin Tasks: Learn how to track performance metrics and ensure daily operational reports are accurate.","Team Development: Understand how to prepare high-performing Level 2s for future leadership roles."]},"week2":{"title":"Week 2","focus":"Technical Immersion & Strategic Planning","actionItems":[{"text":"Complete 3-day IICRC Water Damage Certification course.","completed":false},{"text":"Conduct all initial one-on-one meetings with the team.","completed":false},{"text":"Create Execution Plan: Finalize a detailed plan to resolve all outstanding job issues within 6 weeks.","completed":false},{"text":"Create Execution Plan: Formalize the trainee tracking system and set a schedule for regular follow-ups.","completed":false}],"learningFocus":["Mit Tech Fulfillment: Learn to audit work quality, ensuring consistency in service delivery based on IICRC standards.","Planning: Develop skills in creating daily and weekly work schedules for Level 2s and Mit Techs."]},"week3":{"title":"Week 3","focus":"Mastering Morning Operations","actionItems":[{"text":"Take ownership of running the daily morning huddle.","completed":false},{"text":"Take over daily truck inspections and learn equipment requirements.","completed":false},{"text":"Get hands-on training on the DPT system.","completed":false},{"text":"Conduct a ride-along with the Second Shift Lead.","completed":false}],"learningFocus":["Customer Communication (Advanced): Learn to address critical customer service concerns and handle escalations.","Safety & Compliance: Take responsibility for ensuring adherence to safety regulations at an operational level."]},"week4":{"title":"Week 4","focus":"Routing & Cross-Departmental Insights","actionItems":[{"text":"Take full ownership of the morning routing calls.","completed":false},{"text":"Understand and apply capacity planning for the 260 job goal.","completed":false},{"text":"Launch the 'Floor Demo Cost Analysis' project.","completed":false},{"text":"Conduct a ride-along with the Marketing team.","completed":false}],"learningFocus":["Workload & Labor Management: Learn to handle daily operational challenges and ensure the right workload distribution.","Performance Management: Begin to review and address performance trends for Level 2s and their teams."]},"week5":{"title":"Week 5","focus":"Team Growth & Process Improvement","actionItems":[{"text":"Establish a recurring weekly one-on-one schedule with the team.","completed":false},{"text":"Begin developing formal development plans for each Level 2.","completed":false},{"text":"Begin documenting and prioritizing process improvement opportunities.","completed":false},{"text":"Conduct a ride-along with the Sales team.","completed":false}],"learningFocus":["Internal Communication: Learn to communicate effectively with upper management and internal teams to solve problems.","Strategic Oversight: Practice ensuring that all established processes are being followed consistently by the team."]},"week6":{"title":"Week 6","focus":"Full Independence & Optimization","actionItems":[{"text":"Operate with full responsibility and minimal supervision.","completed":false},{"text":"Present findings from the 'Outstanding Jobs' and 'Floor Demo' projects.","completed":false},{"text":"Identify additional areas for team and process optimization.","completed":false}],"learningFocus":["Labor Spend Management: Demonstrate the ability to manage labor spend effectively, optimizing team resources and time.","Leadership: Solidify the ability to develop Level 2s into strong leaders who effectively manage Mit Techs."]}}};
+            
+            // Using setDoc will either create the document or completely overwrite it if it exists.
+            await setDoc(transitionPlanDocRef, transitionPlanData);
+        }
+
+        async function runRestore() {
+            if (!confirm('This will restore the 6-Week Transition Plan to its original state. All other data will be safe. Continue?')) {
+                return;
+            }
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+            statusDiv.className = 'status progress';
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = 'Restoring transition plan...';
+
+            try {
+                await restorePlan();
+                
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '<strong>🎉 Restore Complete!</strong> The transition plan has been fixed. You can now close this page and use your application.';
+                btn.textContent = '✅ Success!';
+
+            } catch(e) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `An error occurred: ${e.message}<br><br>Please check the console (F12) for details.`;
+                btn.disabled = false;
+                btn.textContent = '✅ Restore Only the 6-Week Transition Plan';
+            }
+        }
+
+        window.runRestore = runRestore;
+    </script>
+</body>
+</html>

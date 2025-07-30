@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matt's 6-Week Transition Plan</title>
+    <style>
+        /* STYLES BUILT TO MATCH YOUR ORANGE & WHITE APP THEME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4; /* Using a neutral light background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            /* CORRECT ORANGE GRADIENT HEADER */
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .dashboard {
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            /* CORRECT ORANGE BORDER */
+            border-left: 5px solid #F57C00;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(245, 124, 0, 0.2);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .card-focus {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6c757d;
+        }
+        
+        .content-section {
+            margin-bottom: 15px;
+        }
+        
+        .content-section h4 {
+            font-size: 1.1rem;
+            /* CORRECT ORANGE ACCENT */
+            color: #F57C00;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+        
+        .content-section h4 .icon {
+            margin-right: 8px;
+        }
+
+        .task-list {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .task-list li {
+            color: #495057;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .task-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            /* CORRECT ORANGE BULLET POINT */
+            color: #FF9800;
+            font-weight: bold;
+        }
+        
+        .intro-card {
+            background: #fff3e0; /* Light Orange Background */
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 5px solid #F57C00;
+        }
+        
+        .intro-card p {
+            font-size: 1.1rem;
+            color: #495057;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Matt's 6-Week Transition Plan</h1>
+            <div class="subtitle">Onboarding Roadmap for the Assistant Mitigation Manager Role</div>
+        </div>
+
+        <div class="dashboard">
+            <div class="intro-card">
+                 <p>This plan outlines Matt's transition from the reconstruction department into his new <strong>Assistant Manager</strong> role. Each week focuses on mastering core responsibilities and driving key departmental projects forward.</p>
+            </div>
+        
+            <h2 class="section-title">🗓️ Weekly Onboarding Roadmap</h2>
+            <div class="plan-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Week 1</div>
+                        <div class="card-focus">Foundation & Project Kick-off</div>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">✅</span>Action Items</h4>
+                        <ul class="task-list">
+                            <li>Get Google Calendar access for team schedules.</li>
+                            <li>Schedule initial one-on-ones with Jacob, Hardie, and Chandler.</li>
+                            <li><strong>Begin Project:</strong> Create tracking spreadsheet for March-July jobs with outstanding payment issues.</li>
+                            <li><strong>Begin Project:</strong> Build a system/spreadsheet for tracking trainee progress and development milestones.</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">🧠</span>Level 1 Learning Focus</h4>
+                        <ul class="task-list">
+                            <li><strong>Admin Tasks:</strong> Learn how to track performance metrics and ensure daily operational reports are accurate.</li>
+                            <li><strong>Team Development:</strong> Understand how to prepare high-performing Level 2s for future leadership roles.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Week 2</div>
+                        <div class="card-focus">Technical Immersion & Strategic Planning</div>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">✅</span>Action Items</h4>
+                        <ul class="task-list">
+                            <li>Complete 3-day IICRC Water Damage Certification course.</li>
+                            <li>Conduct all initial one-on-one meetings with the team.</li>
+                            <li><strong>Create Execution Plan:</strong> Finalize a detailed plan to resolve all outstanding job issues within 6 weeks.</li>
+                            <li><strong>Create Execution Plan:</strong> Formalize the trainee tracking system and set a schedule for regular follow-ups.</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">🧠</span>Level 1 Learning Focus</h4>
+                        <ul class="task-list">
+                           <li><strong>Mit Tech Fulfillment:</strong> Learn to audit work quality, ensuring consistency in service delivery based on IICRC standards.</li>
+                           <li><strong>Planning:</strong> Develop skills in creating daily and weekly work schedules for Level 2s and Mit Techs.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Week 3</div>
+                        <div class="card-focus">Mastering Morning Operations</div>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">✅</span>Action Items</h4>
+                        <ul class="task-list">
+                            <li>Take ownership of running the daily morning huddle.</li>
+                            <li>Take over daily truck inspections and learn equipment requirements.</li>
+                            <li>Get hands-on training on the DPT system.</li>
+                            <li>Conduct a ride-along with the Second Shift Lead.</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">🧠</span>Level 1 Learning Focus</h4>
+                        <ul class="task-list">
+                            <li><strong>Customer Communication (Advanced):</strong> Learn to address critical customer service concerns and handle escalations.</li>
+                           <li><strong>Safety & Compliance:</strong> Take responsibility for ensuring adherence to safety regulations at an operational level.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Week 4</div>
+                        <div class="card-focus">Routing & Cross-Departmental Insights</div>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">✅</span>Action Items</h4>
+                        <ul class="task-list">
+                            <li>Take full ownership of the morning routing calls.</li>
+                            <li>Understand and apply capacity planning for the 260 job goal.</li>
+                            <li>Launch the 'Floor Demo Cost Analysis' project.</li>
+                            <li>Conduct a ride-along with the Marketing team.</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">🧠</span>Level 1 Learning Focus</h4>
+                        <ul class="task-list">
+                            <li><strong>Workload & Labor Management:</strong> Learn to handle daily operational challenges and ensure the right workload distribution.</li>
+                            <li><strong>Performance Management:</strong> Begin to review and address performance trends for Level 2s and their teams.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Week 5</div>
+                        <div class="card-focus">Team Growth & Process Improvement</div>
+                    </div>
+                    <div class="content-section">
+                        <h4><span class="icon">✅</span>Action Items</h4>
+                        <ul class="task-list">
+                            <li>Establish a recurring weekly one-on-one schedule with the team.</li>
+                            <li>Begin developing formal development plans for each Level 2.</li>
+                            <li>Begin documenting and prioritizing process improvement opportunities.</li>
+                            <li>Conduct a ride-along with the Sales team.</li>
+                        </ul>
+                    </div>
+                     <div class="content-section">
+                        <h4><span class="icon">🧠</span>Level 1 Learning Focus</h4>
+                        <ul class="task-list">
+                            <li><strong>Internal Communication:</strong> Learn to communicate effectively with upper management and internal teams to solve problems.</li>
+                            <li><strong>Strategic Oversight:</strong> Practice ensuring that all established processes are being followed consistently by the team.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Week 6</div>
+                        <div class="card-focus">Full Independence & Optimization</div>
+                    </div>
+                     <div class="content-section">
+                        <h4><span class="icon">✅</span>Action Items</h4>
+                        <ul class="task-list">
+                            <li>Operate with full responsibility and minimal supervision.</li>
+                            <li>Present findings from the 'Outstanding Jobs' and 'Floor Demo' projects.</li>
+                            <li>Identify additional areas for team and process optimization.</li>
+                        </ul>
+                    </div>
+                     <div class="content-section">
+                        <h4><span class="icon">🧠</span>Level 1 Learning Focus</h4>
+                        <ul class="task-list">
+                            <li><strong>Labor Spend Management:</strong> Demonstrate the ability to manage labor spend effectively, optimizing team resources and time.</li>
+                            <li><strong>Leadership:</strong> Solidify the ability to develop Level 2s into strong leaders who effectively manage Mit Techs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

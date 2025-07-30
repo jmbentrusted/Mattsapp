@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Time Data Import - Matt's Action Items</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .btn {
+            padding: 12px 24px;
+            background: #f87b4d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #e06a3c;
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .progress {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        h1 {
+            color: #f87b4d;
+            margin-bottom: 20px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Matt's Transition Plan - Data Import</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Warning:</strong> This will add all action items from our planning sessions to your dashboard. Only run this once!
+        </div>
+
+        <button id="importBtn" class="btn" onclick="importAllData()">
+            🚀 Import All Action Items
+        </button>
+
+        <button id="clearBtn" class="btn" onclick="clearAllData()" style="background: #ef4444; margin-left: 10px;">
+            🗑️ Clear All Data (Use with caution!)
+        </button>
+
+        <div id="status"></div>
+        <div id="progress"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase configuration (same as your app)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMXgj9TWW0hjqelbfDEJHJGuzR9cXigRI",
+            authDomain: "matts-transition-plan.firebaseapp.com",
+            projectId: "matts-transition-plan",
+            storageBucket: "matts-transition-plan.firebasestorage.app",
+            messagingSenderId: "63824238795",
+            appId: "1:63824238795:web:656da2a8d19cd1183be34e",
+            measurementId: "G-7DRE31YDR7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // All action items from our conversations
+        const actionItems = [
+            // URGENT ACTIONS
+            {
+                title: "Get Google Calendar Access",
+                priority: "high",
+                category: "process",
+                dueDate: "2024-08-01",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Email Nexus Tech to provide calendar permissions for editing all team calendars",
+                nextAction: "Send email to Nexus Tech requesting calendar access for team management",
+                progress: 0
+            },
+            {
+                title: "Schedule Jacob One-on-One",
+                priority: "high",
+                category: "team",
+                dueDate: "2024-08-05",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Schedule initial one-on-one meeting with Jacob to discuss development goals",
+                nextAction: "Text Jacob to find best meeting day and time",
+                progress: 0
+            },
+            {
+                title: "Schedule Hardy One-on-One",
+                priority: "high",
+                category: "team",
+                dueDate: "2024-08-05",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Schedule initial one-on-one meeting with Hardy focusing on confidence building",
+                nextAction: "Text Hardy to find best meeting day and time",
+                progress: 0
+            },
+            {
+                title: "Schedule Chandler One-on-One",
+                priority: "high",
+                category: "team",
+                dueDate: "2024-08-05",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Schedule initial one-on-one meeting with Chandler for career development discussion",
+                nextAction: "Text Chandler to find best meeting day and time",
+                progress: 0
+            },
+            {
+                title: "Shadow Nate Morning Process",
+                priority: "high",
+                category: "morning",
+                dueDate: "2024-08-01",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Shadow Nate at Katie office at 7:15 AM to learn morning huddle process",
+                nextAction: "Meet Nate at Katie office at 7:15 AM tomorrow",
+                progress: 0
+            },
+
+            // MORNING RESPONSIBILITIES
+            {
+                title: "Master Morning Huddle Process",
+                priority: "medium",
+                category: "morning",
+                dueDate: "2024-08-11",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Learn and take over morning huddle using problem/plan format. Team should be at office by 7:15 AM",
+                nextAction: "Practice problem/plan format with team",
+                progress: 0
+            },
+            {
+                title: "Learn Truck Inspection Standards",
+                priority: "medium",
+                category: "morning",
+                dueDate: "2024-08-11",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Learn equipment requirements per job type, check organization, cleanliness, required equipment",
+                nextAction: "Document equipment requirements checklist",
+                progress: 0
+            },
+            {
+                title: "Take Over Routing Calls",
+                priority: "high",
+                category: "morning",
+                dueDate: "2024-08-18",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Most complex morning task - work with Chris Bailey to master routing calls. Goal: 15 minutes per call",
+                nextAction: "Shadow Chris Bailey on DPC system and routing process",
+                progress: 0
+            },
+            {
+                title: "Implement Morning Debrief",
+                priority: "medium",
+                category: "morning",
+                dueDate: "2024-08-11",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Run 15-minute team check-in to keep team in right mindset",
+                nextAction: "Design morning debrief format and timing",
+                progress: 0
+            },
+
+            // MAJOR PROJECTS
+            {
+                title: "Outstanding Jobs Cleanup",
+                priority: "high",
+                category: "projects",
+                dueDate: "2024-08-25",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Create tracking spreadsheet for March-July payment issues. Clean up outstanding jobs backlog",
+                nextAction: "Identify all outstanding jobs from March 28 - July timeframe",
+                progress: 0
+            },
+            {
+                title: "Floor Demo Cost Analysis",
+                priority: "high",
+                category: "projects",
+                dueDate: "2024-09-15",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Meet with Jorge to analyze $2/sq ft pricing vs current $800/2 guys for 4-5 days. Find cost savings",
+                nextAction: "Schedule meeting with Jorge to discuss floor demo pricing",
+                progress: 0
+            },
+            {
+                title: "Department Trust Building",
+                priority: "high",
+                category: "process",
+                dueDate: "2024-09-13",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Address DC relationship issues. Review Nate's AI summary of problems. Critical for department success",
+                nextAction: "Review Nate's AI summary of DC relationship issues",
+                progress: 0
+            },
+
+            // TRAINING & CERTIFICATION
+            {
+                title: "Complete IICRC Water Damage Certification",
+                priority: "high",
+                category: "training",
+                dueDate: "2024-08-07",
+                assignee: "Matt",
+                status: "scheduled",
+                description: "3-day intensive training Tuesday-Thursday at Beltway Business Center. Breakfast & lunch provided",
+                nextAction: "Attend 3-day certification course Aug 5-7",
+                progress: 0
+            },
+            {
+                title: "Learn DPC System",
+                priority: "high",
+                category: "training",
+                dueDate: "2024-08-11",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Get training from Chris Bailey on job tracking and work order system",
+                nextAction: "Schedule DPC system training with Chris Bailey",
+                progress: 0
+            },
+            {
+                title: "Create One-on-One Templates",
+                priority: "medium",
+                category: "training",
+                dueDate: "2024-08-15",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Build standardized meeting format and employee development framework",
+                nextAction: "Design one-on-one meeting template structure",
+                progress: 0
+            },
+
+            // TEAM DEVELOPMENT
+            {
+                title: "Nate One-time Meeting",
+                priority: "medium",
+                category: "team",
+                dueDate: "2024-08-10",
+                assignee: "Matt",
+                status: "not-started",
+                description: "One-time meeting with Nate about work-life balance and systems approach",
+                nextAction: "Schedule meeting with Nate to learn his systems",
+                progress: 0
+            },
+            {
+                title: "Josh One-time Meeting",
+                priority: "medium",
+                category: "team",
+                dueDate: "2024-08-10",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Get department assessment from Josh. He has wealth of info on team status and negative mindsets",
+                nextAction: "Schedule meeting with Josh for department insights",
+                progress: 0
+            },
+            {
+                title: "Connect Hardy with Josh for Mentoring",
+                priority: "medium",
+                category: "team",
+                dueDate: "2024-08-20",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Josh's personality and experience could help Hardy with confidence building",
+                nextAction: "Facilitate connection between Hardy and Josh",
+                progress: 0
+            },
+
+            // WEEKLY SYSTEMS
+            {
+                title: "Establish Weekly One-on-One Rhythm",
+                priority: "high",
+                category: "process",
+                dueDate: "2024-08-20",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Set up recurring weekly meetings with Jacob, Hardy, Chandler",
+                nextAction: "Complete first round of one-on-ones, then establish recurring schedule",
+                progress: 0
+            },
+            {
+                title: "Create Training Follow-up System",
+                priority: "medium",
+                category: "process",
+                dueDate: "2024-09-01",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Build tracking system for trainee progress - currently no one driving training plans",
+                nextAction: "Build spreadsheet to track trainee progress with mid-leads",
+                progress: 0
+            },
+            {
+                title: "Process Improvement Documentation",
+                priority: "medium",
+                category: "process",
+                dueDate: "2024-09-30",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Capture and prioritize process changes needed across the department",
+                nextAction: "Start documenting process improvement opportunities",
+                progress: 0
+            },
+
+            // CAPACITY PLANNING
+            {
+                title: "Understand Capacity Planning",
+                priority: "medium",
+                category: "morning",
+                dueDate: "2024-08-25",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Learn 260 job goal methodology: 10-11 installs/day weekdays, 6-7 weekends",
+                nextAction: "Work with Chris Bailey to understand capacity planning",
+                progress: 0
+            },
+            {
+                title: "Handle Urgent Issue Escalations",
+                priority: "medium",
+                category: "morning",
+                dueDate: "2024-08-11",
+                assignee: "Matt",
+                status: "not-started",
+                description: "Coach mid-leads on difficult conversations. Most issues aren't MIT-related",
+                nextAction: "Set up escalation process for urgent homeowner issues",
+                progress: 0
+            }
+        ];
+
+        // Sample jobs for outstanding jobs cleanup
+        const sampleJobs = [
+            {
+                name: "208 Stubbs St - Shower Demo Issue",
+                slackChannel: "",
+                priority: "high",
+                status: "on-hold",
+                targetDate: "2024-08-30",
+                assignee: "hardy",
+                issue: "Homeowner cancelled after demo started. Major loss - $6,000-$8,000",
+                nextAction: "Determine collection strategy vs write-off decision",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                name: "Outstanding Payment - March Job",
+                slackChannel: "",
+                priority: "medium",
+                status: "pending",
+                targetDate: "2024-08-15",
+                assignee: "jacob",
+                issue: "Payment collection issue from March work",
+                nextAction: "Review job notes and determine collection approach",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                name: "DC Expectation Mismatch Job",
+                slackChannel: "",
+                priority: "medium",
+                status: "pending",
+                targetDate: "2024-08-20",
+                assignee: "chandler",
+                issue: "Expectations set by DC don't match actual work needed",
+                nextAction: "Meet with mid-lead to discuss resolution strategy",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
+        ];
+
+        // Sample meetings
+        const sampleMeetings = [
+            {
+                employee: "jacob",
+                date: "2024-08-08T09:00:00",
+                type: "weekly",
+                agenda: "Initial meeting - get to know Jacob, understand his development goals, align with department objectives",
+                status: "scheduled",
+                notes: "",
+                actionItems: "",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                employee: "hardy",
+                date: "2024-08-08T14:00:00",
+                type: "weekly",
+                agenda: "Initial meeting - confidence building focus, discuss Josh mentoring opportunity",
+                status: "scheduled",
+                notes: "",
+                actionItems: "",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                employee: "chandler",
+                date: "2024-08-09T10:00:00",
+                type: "weekly",
+                agenda: "Initial meeting - career development discussion, understand progression goals",
+                status: "scheduled",
+                notes: "",
+                actionItems: "",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                employee: "nate",
+                date: "2024-08-10T11:00:00",
+                type: "one-time",
+                agenda: "Learn about work-life balance, systems following approach, transition insights",
+                status: "scheduled",
+                notes: "",
+                actionItems: "",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                employee: "josh",
+                date: "2024-08-10T15:00:00",
+                type: "one-time",
+                agenda: "Department assessment, team feedback, understand where guys are at",
+                status: "scheduled",
+                notes: "",
+                actionItems: "",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
+        ];
+
+        async function importAllData() {
+            const btn = document.getElementById('importBtn');
+            const status = document.getElementById('status');
+            const progress = document.getElementById('progress');
+            
+            btn.disabled = true;
+            btn.textContent = 'Importing...';
+            
+            let successCount = 0;
+            let errorCount = 0;
+            let totalItems = actionItems.length + sampleJobs.length + sampleMeetings.length;
+            let currentItem = 0;
+
+            try {
+                // Import Action Items
+                progress.innerHTML = '<div class="progress">Importing action items...</div>';
+                for (const action of actionItems) {
+                    try {
+                        const actionData = {
+                            ...action,
+                            createdAt: new Date(),
+                            updatedAt: new Date()
+                        };
+                        await addDoc(collection(db, 'actions'), actionData);
+                        successCount++;
+                        currentItem++;
+                        progress.innerHTML = `<div class="progress">Progress: ${currentItem}/${totalItems} - Added action: ${action.title}</div>`;
+                    } catch (error) {
+                        console.error('Error adding action:', error);
+                        errorCount++;
+                    }
+                }
+
+                // Import Sample Jobs
+                progress.innerHTML = '<div class="progress">Importing sample jobs...</div>';
+                for (const job of sampleJobs) {
+                    try {
+                        await addDoc(collection(db, 'jobs'), job);
+                        successCount++;
+                        currentItem++;
+                        progress.innerHTML = `<div class="progress">Progress: ${currentItem}/${totalItems} - Added job: ${job.name}</div>`;
+                    } catch (error) {
+                        console.error('Error adding job:', error);
+                        errorCount++;
+                    }
+                }
+
+                // Import Sample Meetings
+                progress.innerHTML = '<div class="progress">Importing sample meetings...</div>';
+                for (const meeting of sampleMeetings) {
+                    try {
+                        await addDoc(collection(db, 'meetings'), meeting);
+                        successCount++;
+                        currentItem++;
+                        progress.innerHTML = `<div class="progress">Progress: ${currentItem}/${totalItems} - Added meeting: ${meeting.employee}</div>`;
+                    } catch (error) {
+                        console.error('Error adding meeting:', error);
+                        errorCount++;
+                    }
+                }
+
+                status.innerHTML = `
+                    <div class="success">
+                        ✅ Import Complete!<br>
+                        Successfully added: ${successCount} items<br>
+                        Errors: ${errorCount} items<br><br>
+                        <strong>You can now close this page and use your dashboard!</strong>
+                    </div>
+                `;
+                
+                progress.innerHTML = `
+                    <div class="info">
+                        <strong>What was imported:</strong><br>
+                        • ${actionItems.length} Action Items<br>
+                        • ${sampleJobs.length} Sample Outstanding Jobs<br>
+                        • ${sampleMeetings.length} Scheduled Meetings<br><br>
+                        <strong>Next Steps:</strong><br>
+                        1. Go to your dashboard to see all data<br>
+                        2. Start with urgent action items<br>
+                        3. Review and customize as needed
+                    </div>
+                `;
+
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ Import failed: ${error.message}</div>`;
+                console.error('Import error:', error);
+            }
+
+            btn.disabled = false;
+            btn.textContent = '✅ Import Complete';
+        }
+
+        async function clearAllData() {
+            if (!confirm('Are you sure you want to delete ALL data? This cannot be undone!')) {
+                return;
+            }
+            
+            if (!confirm('FINAL WARNING: This will permanently delete all jobs, meetings, and actions. Continue?')) {
+                return;
+            }
+
+            const btn = document.getElementById('clearBtn');
+            const status = document.getElementById('status');
+            
+            btn.disabled = true;
+            btn.textContent = 'Clearing...';
+            
+            try {
+                // Clear actions
+                const actionsSnapshot = await getDocs(collection(db, 'actions'));
+                for (const docSnapshot of actionsSnapshot.docs) {
+                    await deleteDoc(doc(db, 'actions', docSnapshot.id));
+                }
+
+                // Clear jobs
+                const jobsSnapshot = await getDocs(collection(db, 'jobs'));
+                for (const docSnapshot of jobsSnapshot.docs) {
+                    await deleteDoc(doc(db, 'jobs', docSnapshot.id));
+                }
+
+                // Clear meetings
+                const meetingsSnapshot = await getDocs(collection(db, 'meetings'));
+                for (const docSnapshot of meetingsSnapshot.docs) {
+                    await deleteDoc(doc(db, 'meetings', docSnapshot.id));
+                }
+
+                status.innerHTML = '<div class="success">✅ All data cleared successfully!</div>';
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ Clear failed: ${error.message}</div>`;
+                console.error('Clear error:', error);
+            }
+
+            btn.disabled = false;
+            btn.textContent = '🗑️ Clear All Data';
+        }
+
+        // Make functions globally available
+        window.importAllData = importAllData;
+        window.clearAllData = clearAllData;
+    </script>
+</body>
+</html>

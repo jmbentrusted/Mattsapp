@@ -1,0 +1,32 @@
+[debug] [2025-07-30T14:54:42.517Z] ----------------------------------------------------------------------
+[debug] [2025-07-30T14:54:42.519Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2025-07-30T14:54:42.519Z] CLI Version:   14.2.0
+[debug] [2025-07-30T14:54:42.519Z] Platform:      darwin
+[debug] [2025-07-30T14:54:42.519Z] Node Version:  v22.16.0
+[debug] [2025-07-30T14:54:42.519Z] Time:          Wed Jul 30 2025 09:54:42 GMT-0500 (Central Daylight Time)
+[debug] [2025-07-30T14:54:42.519Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-30T14:54:42.615Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-30T14:54:42.615Z] > authorizing via signed-in user (jason.brannon@entrusted.com)
+[debug] [2025-07-30T14:54:42.615Z] [iam] checking project matts-transition-plan for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-07-30T14:54:42.616Z] Checked if tokens are valid: true, expires at: 1753890699649
+[debug] [2025-07-30T14:54:42.616Z] Checked if tokens are valid: true, expires at: 1753890699649
+[debug] [2025-07-30T14:54:42.616Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/matts-transition-plan:testIamPermissions [none]
+[debug] [2025-07-30T14:54:42.616Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/matts-transition-plan:testIamPermissions x-goog-quota-user=projects/matts-transition-plan
+[debug] [2025-07-30T14:54:42.616Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/matts-transition-plan:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-07-30T14:54:42.788Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/matts-transition-plan:testIamPermissions 200
+[debug] [2025-07-30T14:54:42.788Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/matts-transition-plan:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-07-30T14:54:42.788Z] Checked if tokens are valid: true, expires at: 1753890699649
+[debug] [2025-07-30T14:54:42.788Z] Checked if tokens are valid: true, expires at: 1753890699649
+[debug] [2025-07-30T14:54:42.789Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/matts-transition-plan [none]
+[debug] [2025-07-30T14:54:42.959Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/matts-transition-plan 200
+[debug] [2025-07-30T14:54:42.960Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/matts-transition-plan {"projectId":"matts-transition-plan","projectNumber":"63824238795","displayName":"Matts Transition Plan","name":"projects/matts-transition-plan","resources":{"hostingSite":"matts-transition-plan"},"state":"ACTIVE","etag":"1_83a6533c-e527-48ba-8799-62d5fac3f5ae"}
+[info] 
+[info] === Deploying to 'matts-transition-plan'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2025-07-30T14:54:42.965Z] Checked if tokens are valid: true, expires at: 1753890699649
+[debug] [2025-07-30T14:54:42.965Z] Checked if tokens are valid: true, expires at: 1753890699649
+[debug] [2025-07-30T14:54:42.965Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/matts-transition-plan/versions [none]
+[debug] [2025-07-30T14:54:42.965Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/matts-transition-plan/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-07-30T14:54:43.660Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/matts-transition-plan/versions 200

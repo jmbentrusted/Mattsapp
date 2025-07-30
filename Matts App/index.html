@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matt's Performance Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1>Matt's Dashboard</h1>
+                <p>Assistant Mitigation Manager</p>
+            </div>
+            <div class="header-right">
+                <div id="currentDate"></div>
+                <button class="hamburger-menu" id="hamburgerMenu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <nav class="nav-tabs" id="navTabs">
+                <button class="nav-tab active" data-tab="transition">Transition Plan</button>
+                <button class="nav-tab" data-tab="actions">Actions</button>
+                <button class="nav-tab" data-tab="jobs">Jobs</button>
+                <button class="nav-tab" data-tab="team">Team</button>
+                <button class="nav-tab" data-tab="training">Training</button>
+            </nav>
+            <div class="nav-scrim"></div>
+
+            <div id="transition" class="tab-content active"></div>
+            <div id="actions" class="tab-content"></div>
+            <div id="jobs" class="tab-content"></div>
+            <div id="team" class="tab-content"></div>
+            <div id="training" class="tab-content"></div>
+        </main>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h3 id="confirmationModalTitle" class="modal-title">Confirm Action</h3>
+             </div>
+            <p id="confirmationModalText"></p>
+            <div class="action-buttons" style="margin-top: 20px; justify-content: flex-end;">
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+                <button id="confirmDeleteBtn" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h3 id="editModalTitle" class="modal-title"></h3>
+                <span class="close" id="closeEditModal">&times;</span>
+            </div>
+            <form id="editForm" style="margin-top: 20px;"></form>
+        </div>
+    </div>
+
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
